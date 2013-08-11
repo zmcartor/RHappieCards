@@ -48,6 +48,7 @@ group :development, :test do
   gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 # Use ActiveModel has_secure_password
