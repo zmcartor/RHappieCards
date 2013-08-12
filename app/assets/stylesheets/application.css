@@ -10,4 +10,7 @@
  *
  *= require_self
  *= require_tree .
+ *= require stylesheets/base
+ *= require stylesheets/layout
+ *= require stylesheets/skeleton
  */

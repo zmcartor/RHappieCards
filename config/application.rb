@@ -20,25 +20,23 @@ module RHappieCards
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    config.generators do |g|
+      g.test_framework :rspec, :views => false, :fixture => true
+      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+    end
+
     # Configure vendor paths
-    config.assets.paths << Rails.root.join('vendor', 'documentcloud')
-    config.assets.paths << Rails.root.join('vendor', 'Modernizr')
-    config.assets.paths << Rails.root.join('vendor', 'SlexAxton')
-    config.assets.paths << Rails.root.join('vendor', 'freqdec')
+    config.assets.paths << Rails.root.join('vendor', 'Skeleton')
 
     # Individual files to include for polyfills/shims
-    config.assets.precompile += %w( fd-slider/js/fd-slider.js )
-    config.assets.precompile += %w( fd-slider/css/fd-slider.css )
-
-    # Individual files to include for admin interfaces
-    config.assets.precompile += %w( select2.css select2.js )
+    #config.assets.precompile += %w( file.blah )
 
     # Configure default generators
     config.generators do |g|
       g.stylesheets false
       g.javascripts false
       g.helper false
-      g.test_framework  :test_unit, fixture_replacement: :factory_girl
+      g.test_framework  :rspec, fixture_replacement: :factory_girl
     end
 
     # As of Devise 2.2.0 we need to explicitly configure it to respond to JSON
