@@ -1,6 +1,10 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
 
+  before_filter :authenticate_user!
+  load_and_authorize_resource
+
+
   # GET /cards
   # GET /cards.json
   def index

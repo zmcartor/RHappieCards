@@ -1,6 +1,10 @@
 class CallbacksController < ApplicationController
   before_action :set_callback, only: [:show, :edit, :update, :destroy]
 
+  before_filter :authenticate_user!
+  load_and_authorize_resource
+
+
   # GET /callbacks
   # GET /callbacks.json
   def index
