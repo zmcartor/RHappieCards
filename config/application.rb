@@ -19,5 +19,52 @@ module RHappieCards
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    # Configure vendor paths
+    config.assets.paths << Rails.root.join('vendor', 'documentcloud')
+    config.assets.paths << Rails.root.join('vendor', 'Modernizr')
+    config.assets.paths << Rails.root.join('vendor', 'SlexAxton')
+    config.assets.paths << Rails.root.join('vendor', 'freqdec')
+
+    # Individual files to include for polyfills/shims
+    config.assets.precompile += %w( fd-slider/js/fd-slider.js )
+    config.assets.precompile += %w( fd-slider/css/fd-slider.css )
+
+    # Individual files to include for admin interfaces
+    config.assets.precompile += %w( select2.css select2.js )
+
+    # Configure default generators
+    config.generators do |g|
+      g.stylesheets false
+      g.javascripts false
+      g.helper false
+      g.test_framework  :test_unit, fixture_replacement: :factory_girl
+    end
+
+    # As of Devise 2.2.0 we need to explicitly configure it to respond to JSON
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
+
+    config.paperclip_local_config =  {
+        url: '/system/:class/:id_:basename_:style',
+        path: ':rails_root/public/system/:class/:id_:basename_:style',
+        use_timestamp: false,
+    }
+
+    config.paperclip_rackspace_config = {
+        url: ':id_:basename_:style',
+        path: ':id_:basename_:style',
+        storage: :fog,
+        use_timestamp: false,
+        fog_credentials: {
+            provider: 'Rackspace',
+            rackspace_api_key: 'some key',
+            rackspace_username: 'some username'
+        },
+        fog_directory: 'some container name',
+        fog_public: true,
+        fog_host: 'some host'
+    }
   end
 end
